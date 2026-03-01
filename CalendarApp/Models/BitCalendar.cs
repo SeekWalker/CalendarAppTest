@@ -22,7 +22,7 @@ public class BitCalendar
         var date = new DateTime(year, 1, 1)
             .AddDays(-1);
         
-        foreach (var dayNumber in Enumerable.Range(1, dayCount))
+        foreach (var dayNumber in Enumerable.Range(0, dayCount-1))
         {
             date = date.AddDays(1);
             if(schedule.IsDateWorking(date))
@@ -51,6 +51,7 @@ public class BitCalendar
     
     public bool IsWorkingDay(int dayIndex)
     {
+        dayIndex--;
         var block = dayIndex >> 6;
         var offset = dayIndex & 63;
 

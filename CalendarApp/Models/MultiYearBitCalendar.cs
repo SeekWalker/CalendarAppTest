@@ -34,6 +34,7 @@ public class MultiYearBitCalendar
         int dayIndex,
         int n)
     {
+        dayIndex--;
         if (n == 0)
             return (year, dayIndex);
 
