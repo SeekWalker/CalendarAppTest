@@ -114,3 +114,16 @@ Console.WriteLine(scheduleGetNextDay);
 Console.WriteLine(multiIsDateWorking);
 Console.WriteLine(getDates);
 Console.WriteLine(console);
+
+var multiSchedule = new MultiYearBitCalendar(x =>
+    new BitCalendar(schedules
+        .Select(s => new BitCalendar(s, x)), x));
+        
+foreach (var i in Enumerable.Range(0,10))
+{
+    var multiDate = multi
+        .GetEndDate(new DateTime(2026,1,2), i);
+    var multiMultiDate = multiSchedule
+        .GetEndDate(new DateTime(2026,1,2), i);
+    Console.WriteLine(multiDate +" "+ multiMultiDate);
+}
