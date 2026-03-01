@@ -10,6 +10,8 @@ public class BitCalendar
     private readonly ulong[] _data = new ulong[Blocks];
     private readonly int[] _blockPrefix = new int[Blocks + 1];
     public int TotalWorkingDays => _blockPrefix[Blocks];
+    
+    public ulong[] WorkingDays => _data;
 
     public int Year { get; set; }
     public BitCalendar(Schedule schedule, int year)
@@ -28,6 +30,17 @@ public class BitCalendar
             if(schedule.IsDateWorking(date))
                 SetWorkingDay(dayNumber);
         }
+        
+        BuildIndex();
+    }
+    
+    public BitCalendar(IEnumerable<BitCalendar> schedules, int year)
+    {
+        Year = year;
+
+        foreach (var bitCalendar in schedules)
+            for (var i = 0; i < Blocks; i++)
+                _data[i] |= bitCalendar.WorkingDays[i];
         
         BuildIndex();
     }
