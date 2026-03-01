@@ -29,14 +29,35 @@ var schedule = new Schedule()
     }
 };
 
-var calendar = new BitCalendar(schedule, 2026);
+var schedules = new List<Schedule>()
+{
+    new()
+    {
+        ScheduledDays = new List<ScheduledDay>()
+        {
+            new()
+            {
+                SettingDate = new DateOnly(2025, 12, 6),
+                DayType = RepeatDayType.Weekly,
+                IsWorking = false
+            },
+            new()
+            {
+                SettingDate = new DateOnly(2025, 12, 7),
+                DayType = RepeatDayType.Weekly,
+                IsWorking = false
+            },
+            new()
+            {
+                SettingDate = new DateOnly(2026, 1, 1),
+                DayType = RepeatDayType.Yearly,
+                IsWorking = false
+            },
+        }
+    }
+};
 
-Console.WriteLine(new DateTime(2026,2,27)
-    .ToString()+calendar
-    .IsWorkingDay(new DateTime(2026,2,27)));
-Console.WriteLine(new DateTime(2026,2,28)
-    .ToString()+calendar
-    .IsWorkingDay(new DateTime(2026,2,28)));
+var calendar = new BitCalendar(schedule, 2026);
 
 var a = DateTime.Now;
 
@@ -47,13 +68,6 @@ foreach (var i in Enumerable.Range(1,230))
 Console.WriteLine(DateTime.Now-a);
 
 var multi = new MultiYearBitCalendar(x=>new BitCalendar(schedule,x));
-
-Console.WriteLine(new DateTime(2026,2,27)
-    .ToString()+multi
-    .IsWorkingDay(new DateTime(2026,2,27)));
-Console.WriteLine(new DateTime(2026,2,28)
-    .ToString()+multi
-    .IsWorkingDay(new DateTime(2026,2,28)));
 
 a = DateTime.Now;
 foreach (var i in Enumerable.Range(1,10000))
